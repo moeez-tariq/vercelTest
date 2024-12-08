@@ -1,0 +1,112 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Manhattan Map</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+    <style>
+        #map {
+            height: 100vh; /* Adjust as needed */
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script>
+        // Initialize the map and set its view to Manhattan's coordinates
+        var map = L.map('map').setView([40.7831, -73.9712], 13);
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Optional: Add a marker to Manhattan
+        var marker = L.marker([40.7831, -73.9712]).addTo(map);
+        marker.bindPopup("Welcome to Manhattan!").openPopup();
+    </script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manhattan Map</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+    <style>
+        #map {
+            height: 100vh; /* Adjust as needed */
+            width: 100%;
+        }
+        .popup-content {
+            text-align: left;
+        }
+        .popup-content img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script>
+        // Initialize the map and set its view to Manhattan's coordinates
+        var map = L.map('map').setView([40.7831, -73.9712], 13);
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Add a marker with detailed popup content
+        var marker = L.marker([40.7831, -73.9712]).addTo(map);
+
+        var popupContent = `
+            <div class="popup-content">
+                <h3>Central Park</h3>
+                <img src="picture.jpg" alt="Central Park">
+                <ul>
+                    <li>A piece of paradise in the middle of the city.</li>
+                    <li>Perfect for a relaxing stroll or a picnic.</li>
+                    <li>Loved by locals and tourists alike.</li>
+                </ul>
+            </div>
+        `;
+
+        marker.bindPopup(popupContent);
+
+         // Variable to hold the audio instance
+        let audio = null;
+
+        // Play audio when marker is clicked
+        marker.on('click', function () {
+            console.log('Marker clicked');
+            audio = new Audio('audio.mp3'); // Ensure this file exists in your root directory
+            console.log(audio);
+            audio.play();
+        });
+
+        // Stop audio when popup is closed
+        map.on('popupclose', function () {
+            console.log('Popup closed');
+            console.log(audio);
+            if (audio) {
+                console.log('Stopping audio');
+                audio.pause();
+                audio.currentTime = 0;
+            }
+        });
+    </script>
+</body>
+</html>
